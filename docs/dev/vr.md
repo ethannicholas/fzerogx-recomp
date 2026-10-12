@@ -75,11 +75,29 @@ along the nose, sway to the right, heave along the track normal); pitch and roll
 track rather than the world, since gravity points into the track; the accelerations scaled
 by `accel_scale` (0.1) because a boost start is about 20 g; inactive outside `race_live`.
 
+Retuned after a first ride of the same shared module with another game, on which yawing
+with every turn was jarring, the platform sat dead still on a straight, and the shaker had
+no engine:
+
+- Yaw only in a slide or a spin (`Motion::yaw_heading` false). The ride recorded on this
+  machine (`saves/inputs/20261012-180637`, replayed headless with `FZGX_MOTIONLOG=1`) had the
+  nose 1 degree off the velocity at the median and 7 at the 90th percentile, 20-45 through
+  slide turns (about 4% of the time): the slide's yaw starts past 10 degrees. Steered, the
+  machine turned at 190 degrees a second at most; through a spin attack at 1350-1520, for
+  about a second: a spin is over 400, and lasts until under 200.
+- A texture from the shared module's made-up bumps, on at 0.3, off in the air -- while the
+  eased acceleration into the track is below -0.6 g; on the ride a jump's fall read about -9
+  m/s^2 and nothing else came near. The machine's track normal (machine+0x1BC) stays valid
+  in the air, so it cannot tell.
+- The engine is the speed (1500-9000 rpm to 1400 km/h; the ride's median speed was 990, its
+  boosts 1400-1780).
+
 ## Not yet known
 
 - World scale, HUD placement and any world pitch in the headset: `units_per_metre` is 1 from
   the speedometer, everything else the defaults. Needs wearing.
 - Whether the countdown accepts a camera tap (taps wait for phase 41).
 - Phase 42 (a finish) and the other modes (time attack, practice, story, VS).
-- Telemetry on a rig: the accelerations' scale, and whether the track-relative angles feel
-  right in a pipe or on a cylinder.
+- Telemetry on a rig: the accelerations' scale (wall and machine contacts hold surge, sway
+  and heave at the 15 m/s^2 limit for a moment), whether the track-relative angles feel
+  right in a pipe or on a cylinder, the slide and spin yaw, the texture.

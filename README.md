@@ -151,12 +151,34 @@ The platform moves only during a race: it eases to rest in the menus, while paus
 the end of a race, and eases back in when one starts or you resume. Pitch and roll are your
 machine's against the track under it, since that is where gravity points in this game, even
 on a wall or round a pipe; surge, sway and heave are its accelerations. F-Zero machines
-accelerate at tens of g, so those are scaled down before they are sent. Every channel can be
-scaled, inverted or limited with a `telemetry.txt` in the directory you run the game from
-(all optional):
+accelerate at tens of g, so those are scaled down before they are sent.
+
+The platform does not yaw with every turn. It yaws into a slide, by how far the machine's
+nose is off the way it is going, and thrashes from side to side through a spin attack. A
+texture of bumps runs under it on the track, and stops in the air; the engine is sent for a
+shaker's engine effect, rising with your speed.
+
+Every channel can be scaled, inverted or limited with a `telemetry.txt` in the directory you
+run the game from (all optional):
 
 ```
 accel_scale 0.1     # what the machine's accelerations are multiplied by before anything else
+slide_deadzone 10   # how far, in degrees, the nose may be off the way it goes before it yaws
+slide_yaw_gain 0.4  #   then yaw by this much of the rest
+slide_yaw_max 12    #   at most this, in degrees
+spin_rate 400       # turning faster than this, degrees a second, is a spin
+spin_yaw 12         #   which swings the platform this far each way, in degrees
+track_texture 0.3   # how rough the track feels, 0 to 1
+texture_gain 1      # all of the texture
+texture_bumps 4     #   bumps a second
+texture_hz 6        #   how fast each one rings
+texture_grain 0.25  #   the finer grain under them, against the bumps
+texture_heave 1.5   #   its size at roughness 1: m/s^2,
+texture_pitch 0.3   #   degrees
+texture_roll 0.5    #   and degrees
+idle_rpm 1500       # the engine at a standstill
+max_rpm 9000        #   and flat out
+top_kmh 1400        #   at this speed
 pitch_gain 1        # multiply each channel; a negative value inverts it
 roll_gain 1
 yaw_gain 1
@@ -166,10 +188,9 @@ heave_gain 1        # acceleration along the track's normal
 fade_s 1            # seconds to ease in and out of rest
 max_angle 25        # the most pitch, roll or yaw sent, in degrees
 angle_rate 120      #   and how fast pitch and roll may change, in degrees a second
-yaw_rate 60         #   and yaw
+yaw_rate 360        #   and yaw
 max_accel 15        # the most acceleration sent, in m/s^2 (about 1.5 g)
 accel_rate 300      #   and how fast it may change, in m/s^2 a second
-yaw_washout_s 1.5   # yaw is sent as the turn in progress, returning to centre over this
 accel_s 0.15        # seconds over which accelerations are smoothed; higher is gentler
 velocity_s 0.05     # the same for the velocity they are taken from
 log 0               # 1 prints what is sent, twice a second
