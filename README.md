@@ -45,8 +45,9 @@ The build verifies this hash and stops with an error for any other version.
 
 ## Status
 
-Early. The game boots to its first memory card prompt; see `docs/dev/status.md` for how
-far it gets and what is known not to work.
+Early. The game runs from a blank memory card through the menus into a Grand Prix race;
+there is no audio yet. See `docs/dev/status.md` for how far it gets and what is known not
+to work.
 
 ## Building
 

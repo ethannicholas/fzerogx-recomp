@@ -28,8 +28,8 @@ code do it, and ask first.
 anything non-obvious you learn in `docs/dev/`:
 
 - `docs/dev/status.md` -- how far the game gets, what is broken, the next milestones.
-- `docs/dev/boot.md` -- how the game loads its code (the modules, the packed main module)
-  and maps its memory.
+- `docs/dev/boot.md` -- how the game loads its code and maps its memory.
+- `docs/dev/routes.md` -- scripted input routes through the game.
 
 When a belief is overturned, say what the belief was and what disproved it.
 

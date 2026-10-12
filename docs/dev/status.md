@@ -1,18 +1,44 @@
 # Status
 
-## 2026-10-12: first boot
+## 2026-10-12: a race
 
-Boots through the SDK, builds and links `fze.main`, links `fze.title`, plays the AV logo
-and shows the first memory card prompt ("There is no F-ZERO GX save file on the Memory
-Card in Slot A. Would you like to create a save file now?") at full speed. The rendering
-of both looks right. Not yet tried: answering the prompt, the title screen, menus, a race.
+From a blank memory card, scripted input (`docs/dev/routes.md`) gets through the whole
+first-run flow and into a Grand Prix race:
+
+- AV logo; "no save file" prompt; name entry; the save is written to the emulated card.
+- Title screen with its real-time attract sequence; Select Mode; Grand Prix → Novice → Ruby
+  Cup; Select Machine (Blue Falcon); the course preview; Machine Settings.
+- Mute City / Twist Road: the flyover intro, the countdown, the race with 29 CPU machines,
+  the HUD and minimap, boost start, speed. With accelerate held and no steering the
+  machine scrapes the walls until it retires, and the Retry / Settings / Quit menu comes up.
+
+Modules seen linked and unlinked: `fze.sample`, `fze.main`, `fze.title`, `fze.sel`.
+
+## Known problems
+
+- In some attract-mode shots on the title screen, a flat grey-lilac area covers part of
+  the screen. Seen before the FPRF fix (below) and not checked since.
+- Audio: not looked at. Music is ADX (`snd/adx_bgm`), sound effects are in
+  `snd/normal_se/PACK*.bin`, movies are Sofdec (`.sfd`).
+- Windows: `build.ps1` from prime-recomp has not been brought over.
+
+## Fixed on the way (all in gcn-recomp)
+
+- The game's GPU watchdog reset the console: the CP write pointer was overwritten at a
+  CP_CR write, and PE control read back its write-only interrupt bits (`boot.md`).
+- Starting a race crashed in a worker thread: the game re-creates a detached thread on the
+  same OSThread once the last one has exited, and the runtime resumed the dead one from the
+  save the SDK makes as a thread exits. Bindings are now stamped with the save's SRR0 and
+  r1 and dropped when the context is re-initialised.
+- Every machine, and the camera, was NaN (the game prints `NaN cam_pos` on screen): the
+  math library classifies a value with `frsp` + `mcrfs` before `frsqrte`, and FPSCR[FPRF]
+  was never set, so it took the reciprocal square root of zero. FPRF is now kept for every
+  op that sets it. This also brought back the machine model and balance chart on Machine
+  Settings.
 
 ## Next
 
-- Script input past the memory card prompt (`GCN_INPUT` / `--replay`) and get to the title
-  screen and the menus, which load further modules.
-- A race: `fze.main`'s per-frame work and the course loading through the virtual memory
-  window.
-- Audio: not looked at. The music is ADX (`snd/adx_bgm`), the sound effects are in
-  `snd/normal_se/PACK*.bin`, and the movies are Sofdec (`.sfd`).
-- Windows: `build.ps1` from prime-recomp has not been brought over.
+- Steering: a route that finishes a race, then the rest of the cup.
+- The other modes, which load the remaining modules (story, customize, replay, ...).
+- The grey area in the attract sequence.
+- Audio.
