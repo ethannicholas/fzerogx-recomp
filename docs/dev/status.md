@@ -20,7 +20,15 @@ Modules seen linked and unlinked: `fze.sample`, `fze.main`, `fze.title`, `fze.se
   the screen. Seen before the FPRF fix (below) and not checked since.
 - Audio: not looked at. Music is ADX (`snd/adx_bgm`), sound effects are in
   `snd/normal_se/PACK*.bin`, movies are Sofdec (`.sfd`).
-- Windows: `build.ps1` from prime-recomp has not been brought over.
+
+## Windows
+
+This note used to say `build.ps1` had not been brought over from prime-recomp. It has been.
+On 2026-10-12 it built from a clean checkout on Windows 11 (clang 21, VS Build Tools 2022),
+reading the disc straight from a `.ciso`. The blank-card route in `routes.md` reached a live
+race. With `--telemetry`, the packets arrived (236 bytes each, SimRacingStudio API v102) and
+went from rest to active. `--vr` reached the Meta OpenXR runtime; nothing has been tried in
+the headset yet.
 
 ## Fixed on the way (all in gcn-recomp)
 
