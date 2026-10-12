@@ -24,4 +24,9 @@ gcn_add_game(
        fze.option.rel fze.pilotpoint.rel fze.profile.rel fze.replay.rel fze.sample.rel fze.sel.rel
        fze.story.rel fze.title.rel fze.winning.rel
   REL_RUNTIME fze.main
-  REL_SYMBOLS ${CMAKE_SOURCE_DIR}/analysis/rels)
+  REL_SYMBOLS ${CMAKE_SOURCE_DIR}/analysis/rels
+  # The game's half of the headset and the motion rig: when to be in stereo, its own
+  # first-person camera, and the machine's motion (docs/dev/vr.md).
+  SOURCES ${CMAKE_SOURCE_DIR}/src/race.cpp ${CMAKE_SOURCE_DIR}/src/vr_fzerogx.cpp ${CMAKE_SOURCE_DIR}/src/motion.cpp
+  # The headset app and its harness, on an Android build.
+  ANDROID_PACKAGE com.ethannicholas.fzerogx)
