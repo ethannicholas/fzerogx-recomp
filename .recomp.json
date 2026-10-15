@@ -1,0 +1,35 @@
+{
+  "$schema": "https://recomp.fyi/schema/v1.json",
+  "game": "F-Zero GX",
+  "system": "GameCube",
+  "type": "recomp",
+  "original": {
+    "region": "USA",
+    "serial": "DL-DOL-GFZE-USA",
+    "sha1": "cc3beb4ae027eae208d4ffb00eaa13674f56d25e"
+  },
+  "project": "fzerogx-recomp",
+  "status": "playable",
+  "targets": [
+    "macOS",
+    "Windows",
+    "Meta Quest 3"
+  ],
+  "toolchain": "gcn-recomp",
+  "approach": "Static recompilation of the PowerPC executable to C, linked against a runtime that stands in for the GameCube hardware",
+  "tags": [
+    "VR"
+  ],
+  "maintainers": [
+    {
+      "name": "Ethan Nicholas",
+      "link": "https://github.com/ethannicholas"
+    }
+  ],
+  "links": [
+    {
+      "label": "Source",
+      "url": "https://github.com/ethannicholas/fzerogx-recomp"
+    }
+  ]
+}

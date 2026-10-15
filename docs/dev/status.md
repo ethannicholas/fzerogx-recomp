@@ -18,8 +18,6 @@ Modules seen linked and unlinked: `fze.sample`, `fze.main`, `fze.title`, `fze.se
 
 - In some attract-mode shots on the title screen, a flat grey-lilac area covers part of
   the screen. Seen before the FPRF fix (below) and not checked since.
-- Audio: not looked at. Music is ADX (`snd/adx_bgm`), sound effects are in
-  `snd/normal_se/PACK*.bin`, movies are Sofdec (`.sfd`).
 
 ## Windows
 
@@ -27,8 +25,13 @@ This note used to say `build.ps1` had not been brought over from prime-recomp. I
 On 2026-10-12 it built from a clean checkout on Windows 11 (clang 21, VS Build Tools 2022),
 reading the disc straight from a `.ciso`. The blank-card route in `routes.md` reached a live
 race. With `--telemetry`, the packets arrived (236 bytes each, SimRacingStudio API v102) and
-went from rest to active. `--vr` reached the Meta OpenXR runtime; nothing has been tried in
-the headset yet.
+went from rest to active. `--vr` reached the Meta OpenXR runtime.
+
+## Played through
+
+This note used to say audio had not been looked at and that nothing had been tried in a
+headset or on a motion rig. Since then the game has been played end to end in VR with the
+motion rig, with sound and music, and tried on the Quest 3.
 
 ## Fixed on the way (all in gcn-recomp)
 

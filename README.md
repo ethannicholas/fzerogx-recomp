@@ -6,9 +6,7 @@ The game's PowerPC code -- the executable and the relocatable modules it loads a
 time -- is translated ahead of time into C, then compiled and linked against a runtime that
 stands in for the GameCube hardware (graphics, audio, DVD, controllers, memory card). The
 result is a native program that runs the original game logic without an emulator's CPU
-core. The recompiler and runtime are [gcn-recomp](https://github.com/ethannicholas/gcn-recomp),
-shared with [bluestorm-recomp](https://github.com/ethannicholas/bluestorm-recomp) and
-[prime-recomp](https://github.com/ethannicholas/prime-recomp).
+core. The recompiler and runtime are [gcn-recomp](https://github.com/ethannicholas/gcn-recomp).
 
 > **This repository contains no game code or data.** You must supply your own disc image,
 > dumped from a copy of the game that you own. The build process reads the code out of
@@ -45,10 +43,7 @@ The build verifies this hash and stops with an error for any other version.
 
 ## Status
 
-Early. The game runs from a blank memory card through the menus into a Grand Prix race;
-there is no audio yet. VR and motion-rig support are written but not yet tried in a
-headset or on a rig. See `docs/dev/status.md` for how far it gets and what is known not
-to work.
+Playable, with sound and music. See `docs/dev/status.md` for what is known not to work.
 
 ## Building
 
@@ -198,8 +193,7 @@ log 0               # 1 prints what is sent, twice a second
 
 ## Running on a Quest 3
 
-Early: the app builds from the same scripts as the other gcn-recomp games, but has not yet
-been played in the headset. The scripts are PowerShell, so these steps are for a Windows PC.
+The scripts are PowerShell, so these steps are for a Windows PC.
 
 ### Requirements
 
