@@ -18,6 +18,9 @@ gcn_add_game(
   SYMBOLS ${CMAKE_SOURCE_DIR}/analysis/symbols.txt
   TABLES ${CMAKE_SOURCE_DIR}/recomp
   FPS 60
+  # The shader keys a play-through uses, compiled on a fresh install before the game starts:
+  # made by gcn-recomp/tools/shader_keys from the Vision Pro's cache (docs/dev/vr.md).
+  SHADER_KEYS ${CMAKE_SOURCE_DIR}/src/shader_keys.bin
   # Most of the game is in relocatable modules: the mode modules on the disc, and the main
   # one, fze.main, which the game assembles in memory at boot; the first build takes it
   # from the running game (gcn-recomp/docs/rels.md).

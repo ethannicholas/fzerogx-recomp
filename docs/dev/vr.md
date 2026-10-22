@@ -123,3 +123,11 @@ Moving to gcn-recomp 5294025 from 79c1f4f took one change: `Motion::yaw_heading`
 yaw that was already the slide and spin, so the line went.
 
 Built and installed; not yet played on the device.
+
+### Shader keys from the Vision Pro (2026-10-22)
+
+`src/shader_keys.bin` (`SHADER_KEYS`) is the list gcn-recomp compiles on a fresh install
+before the game starts. It is the Vision Pro's cache from the first session there, which
+reached name registration: 26 keys, the menus' only. To extend it with a later cache, put it
+first so its order holds: `shader_keys src/shader_keys.bin src/shader_keys.bin <cache>`.
+
