@@ -101,3 +101,25 @@ no engine:
 - Telemetry on a rig: the accelerations' scale (wall and machine contacts hold surge, sway
   and heave at the 15 m/s^2 limit for a moment), whether the track-relative angles feel
   right in a pipe or on a cylinder, the slide and spin yaw, the texture.
+
+## The Vision Pro (2026-10-22)
+
+A standalone Vision Pro build, on gcn-recomp's `visionos/` frontend (how it works, and what
+the first games on a device overturned, is in `gcn-recomp/docs/visionos.md`).
+`VISIONOS_BUNDLE_ID` in `CMakeLists.txt` turns it on, and `build-visionos.sh` builds,
+installs and pushes the disc image. Like the Android build, it takes `fze.main` from the
+desktop build's `build/rels-runtime/`, so the desktop build comes first. The platform's own
+defaults apply over this game's: `eye_scale` 1, since the recommendation is the foveated
+texture's size, and no GPU budget, since ANGLE's timer overstates (gcn-recomp
+`docs/visionos.md`, "Resolution").
+
+Nothing new was needed from this game's hooks: `map_pad` only adds the camera button it
+taps, so a PS VR2 Sense controller, mapped onto the Touch profile, plays as a Touch
+controller on a Quest, and a gamepad gets the desktop's layout; the right stick click is the
+cockpit view on either.
+
+Moving to gcn-recomp 5294025 from 79c1f4f took one change: `Motion::yaw_heading` is gone
+(gcn-recomp fda4ad1, yaw is only ever relative), and `src/motion.cpp` set it to false over a
+yaw that was already the slide and spin, so the line went.
+
+Built and installed; not yet played on the device.

@@ -187,7 +187,6 @@ void motion_frame(const Race& race) {
     m.speed_kmh = speed * 3.6f;
     m.pitch = asinf(clamp1(dot(fwd, n))) * kDeg;      // nose up is positive
     m.roll = -asinf(clamp1(dot(right, n))) * kDeg;    // right side down is positive
-    m.yaw_heading = false;
     m.yaw = y.slide + spin_yaw * sinf(y.spun / kDeg) * y.spin_w;
     m.surge = dot(t.acc, fwd) * accel_scale;
     m.sway = dot(t.acc, right) * accel_scale;

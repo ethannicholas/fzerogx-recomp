@@ -7,6 +7,7 @@ endif()
 # Everything that is not specific to F-Zero GX lives in gcn-recomp (a submodule): the
 # recompiler, the GameCube runtime, the renderer and the frontends. See its README.
 add_subdirectory(gcn-recomp)
+gcn_enable_languages()
 
 gcn_add_game(
   NAME fzerogx
@@ -29,4 +30,6 @@ gcn_add_game(
   # first-person camera, and the machine's motion (docs/dev/vr.md).
   SOURCES ${CMAKE_SOURCE_DIR}/src/race.cpp ${CMAKE_SOURCE_DIR}/src/vr_fzerogx.cpp ${CMAKE_SOURCE_DIR}/src/motion.cpp
   # The headset app and its harness, on an Android build.
-  ANDROID_PACKAGE com.ethannicholas.fzerogx)
+  ANDROID_PACKAGE com.ethannicholas.fzerogx
+  # The Vision Pro app, on a visionOS build: see build-visionos.sh.
+  VISIONOS_BUNDLE_ID com.ethannicholas.fzerogx)
