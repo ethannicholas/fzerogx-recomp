@@ -18,7 +18,7 @@ constexpr uint32_t kBss = 6;  // its .bss section
 constexpr uint32_t kStateOff = 0x3C28;       // RaceState
 constexpr uint32_t kPausedOff = 0x25C44;     // 1 while paused (and on the retired screen)
 constexpr uint32_t kPlayerRaceOff = 0x25E88; // 1 from the grid to the end of a player's race
-constexpr uint32_t kMachineOff = 0x2C48C;    // the player's machine
+constexpr uint32_t kMachineOff = 0x6D838;    // the player's machine (0x2C48C is set in a Grand Prix only)
 constexpr uint32_t kCameraOff = 0x83C24;     // the race camera, in the top byte
 
 // The machine (a heap block the race allocates)

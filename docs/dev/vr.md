@@ -22,7 +22,8 @@ the title's attract demo.
 | 0x3C28 | race phase | 38 machine settings, 39 course flyover, 40 grid and countdown, 41 racing, 43 retired. **Not reset** when a race is quit: still 41 in the menus after; also 41 in the title's demo race |
 | 0x25E88 | a player's race | 1 from the grid to the end of a race the player drives; 0 in the menus (after a quit too), the flyover and the title's demo |
 | 0x25C44 | paused | 1 on the pause menu and the retired screen; 0 racing and in the menus. (0x26B50 behaves the same; 0x50F8 latches at the first pause and stays) |
-| 0x2C48C | the player's machine | a pointer into the heap; set from machine settings on, **stale** after the race, 0 in the title's demo |
+| 0x6D838 | the player's machine | a pointer into the heap, the first of the race's machines; set from machine settings on, in every mode seen (Grand Prix, Practice), and in the title's demo too |
+| 0x2C48C | the player's machine, in a Grand Prix | the same pointer, but 0 throughout a Practice race; **stale** after the race, 0 in the title's demo |
 | 0x83C24 | race camera, top byte | 0 first person, 1 the default chase camera, 2 and 3 further back |
 | 0x6D840 | racers | 0x1E1E with 30 racing; the low byte dropped to 0x1D when the player retired |
 
@@ -34,7 +35,7 @@ The machine (from the pointer above):
 
 | offset | what |
 |---|---|
-| 0x00 | flags; 0x80800400 racing, 0x88000480 retired |
+| 0x00 | flags; 0x80800400 racing in a Grand Prix, 0x80000401 in Practice, 0x88000480 retired |
 | 0x7C | position; the previous frame's at 0x88 |
 | 0x14C | world matrix, a GX 3x4 by rows: the columns are its right, up and *back* axes (the nose is -Z), the fourth its position |
 | 0x1BC | the normal of the track under it (0,1,0 on the flat), copied at 0x270 |
@@ -67,6 +68,17 @@ cursors, and gives up after three taps that change nothing.
 start, as the click would. The desktop window does not call `map_pad`, so there the taps are
 only logged.
 
+## Practice (2026-10-22)
+
+A Practice race on the Quest never went into stereo. Replaying its input log with
+`FZGX_VRLOG=1`, which also prints each change of the race fields, showed the phase and the
+race flag as in a Grand Prix (40 on the grid, 41 racing, the flag 1), but `.bss`+0x2C48C,
+which had been taken for the player's machine, 0 throughout. The belief was that it is the
+player's machine in any race; it is set in a Grand Prix only. In a RAM dump of the race the
+one machine moving (its matrix's position equal to its position at +0x7C) was pointed to
+from `.bss`+0x6D838, which holds the same machine as 0x2C48C in a Grand Prix: that is the
+pointer now. The replay goes into stereo on the grid with it.
+
 ## Telemetry
 
 See the comment at the top of `motion.cpp`. In short: velocity and acceleration differenced
@@ -97,7 +109,7 @@ no engine:
 - World scale, HUD placement and any world pitch in the headset: `units_per_metre` is 1 from
   the speedometer, everything else the defaults. Needs wearing.
 - Whether the countdown accepts a camera tap (taps wait for phase 41).
-- Phase 42 (a finish) and the other modes (time attack, practice, story, VS).
+- Phase 42 (a finish) and the other modes (time attack, story, VS).
 - Telemetry on a rig: the accelerations' scale (wall and machine contacts hold surge, sway
   and heave at the 15 m/s^2 limit for a moment), whether the track-relative angles feel
   right in a pipe or on a cylinder, the slide and spin yaw, the texture.

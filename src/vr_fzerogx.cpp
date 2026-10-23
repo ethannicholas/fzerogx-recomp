@@ -50,10 +50,10 @@ constexpr int kTapTries = 3;            // taps that change nothing before givin
 // otherwise blink into stereo on the way out; resuming costs the same wait.
 constexpr uint32_t kResumeFrames = 45;
 
-// FZGX_VRLOG=1: each tap and each change of the stereo answer. FZGX_FP=0/1 asks for the
-// chase or first-person camera from the start, as the right stick click would: with no
-// headset the taps are only logged (the desktop does not call map_pad), which shows what a
-// headset would do.
+// FZGX_VRLOG=1: each tap, each change of the stereo answer and of the race fields it is
+// decided from. FZGX_FP=0/1 asks for the chase or first-person camera from the start, as
+// the right stick click would: with no headset the taps are only logged (the desktop does
+// not call map_pad), which shows what a headset would do.
 bool log() {
     static const bool on = getenv("FZGX_VRLOG") != nullptr;
     return on;
@@ -67,6 +67,12 @@ void guest_frame(uint32_t frame) {
     (void)preset;
     const fzgx::Race race = fzgx::race_read();
     const bool race_live = fzgx::race_live(race);
+    static fzgx::Race last;
+    if (log() && (race.state != last.state || race.player_race != last.player_race || race.paused != last.paused ||
+                  !race.machine != !last.machine))
+        fprintf(stderr, "[vr] frame %u: state %d, player race %d, paused %d, machine %08X\n", frame, race.state,
+                race.player_race, race.paused, race.machine);
+    last = race;
     // From the grid on a fresh race stereo comes at once; after a pause, only once the race
     // has stayed live for kResumeFrames.
     static uint32_t live_since = 0;
