@@ -43,7 +43,7 @@ The build verifies this hash and stops with an error for any other version.
 
 ## Status
 
-Playable, with sound and music. See `docs/dev/status.md` for what is known not to work.
+Complete: fully playable from start to finish, with sound and music, on the desktop and in VR, with no known issues. See `docs/dev/status.md` for how it got there.
 
 ## Building
 

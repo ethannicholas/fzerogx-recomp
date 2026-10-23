@@ -1,5 +1,12 @@
 # Status
 
+## Complete (2026-10-23)
+
+The game is fully playable from start to finish, on the desktop and in VR (PC VR and the
+Quest 3), with sound and music, and has no known issues. Story Mode's movies were the last
+thing found broken. The shader keys shipped in `src/shader_keys.bin` now include everything
+the Quest compiled over those sessions (`vr.md`). The sections below are the history.
+
 ## 2026-10-12: a race
 
 From a blank memory card, scripted input (`docs/dev/routes.md`) gets through the whole
@@ -16,8 +23,9 @@ Modules seen linked and unlinked: `fze.sample`, `fze.main`, `fze.title`, `fze.se
 
 ## Known problems
 
-- In some attract-mode shots on the title screen, a flat grey-lilac area covers part of
-  the screen. Seen before the FPRF fix (below) and not checked since.
+None. This section used to list a flat grey-lilac area over part of the screen in some of
+the title's attract-mode shots, seen before the FPRF fix (below); it has not been seen in
+play since.
 
 ## Windows
 
@@ -83,7 +91,6 @@ scaled by 1 - 1e-7), which draws the one and clips the other; the replay's movie
 
 ## Next
 
-- Steering: a route that finishes a race, then the rest of the cup.
-- The other modes, which load the remaining modules (story, customize, replay, ...).
-- The grey area in the attract sequence.
-- Audio.
+Nothing planned. This used to list a route that finishes a race, the other modes, the grey
+area in the attract sequence and audio; the game has since been played through, with sound
+and music.

@@ -9,7 +9,7 @@
     "sha1": "cc3beb4ae027eae208d4ffb00eaa13674f56d25e"
   },
   "project": "fzerogx-recomp",
-  "status": "playable",
+  "status": "complete",
   "targets": [
     "macOS",
     "Windows",

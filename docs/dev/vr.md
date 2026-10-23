@@ -184,3 +184,6 @@ before the game starts. It is the Vision Pro's cache from the first session ther
 reached name registration: 26 keys, the menus' only. To extend it with a later cache, put it
 first so its order holds: `shader_keys src/shader_keys.bin src/shader_keys.bin <cache>`.
 
+On 2026-10-23 it was extended so from the Quest's cache after sessions through Grand Prix,
+Practice and Story Mode: 217 keys, 191 of them new (the cache held all 26 already).
+
