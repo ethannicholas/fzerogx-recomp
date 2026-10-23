@@ -89,6 +89,14 @@ renders each machine's shadow once, as the race loads, and samples that copy for
 the race; the change of scale dropped every copy texture. Fixed in gcn-recomp (copies are
 resampled to the new scale).
 
+## Distant terrain in stereo (2026-10-22)
+
+On Cylinder Knot, from the moment the view went to stereo, part of the distant terrain was
+black, and the black swung about with the head. The eyes' far plane was the frontend's
+`far_m`, 2 km; the course's scenery stands farther out, and the plane turned with the head.
+An eye now takes each draw's far plane from the game's projection (gcn-recomp, "The eye's
+far plane" in `graphics.md`); on the Quest the terrain is whole.
+
 ## Telemetry
 
 See the comment at the top of `motion.cpp`. In short: velocity and acceleration differenced
