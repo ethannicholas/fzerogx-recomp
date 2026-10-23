@@ -267,8 +267,6 @@ transition_s 1           # seconds the switch between flat and stereo takes
 
 ## Running on an Apple Vision Pro
 
-New, and not yet played on a device.
-
 ### Requirements
 
 - A Mac with Xcode 26 (with the visionOS SDK), CMake, and Python 3.

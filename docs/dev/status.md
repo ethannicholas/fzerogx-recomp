@@ -2,10 +2,11 @@
 
 ## Complete (2026-10-23)
 
-The game is fully playable from start to finish, on the desktop and in VR (PC VR and the
-Quest 3), with sound and music, and has no known issues. Story Mode's movies were the last
-thing found broken. The shader keys shipped in `src/shader_keys.bin` now include everything
-the Quest compiled over those sessions (`vr.md`). The sections below are the history.
+The game is fully playable from start to finish, on the desktop and in VR (PC VR, the
+Quest 3 and the Vision Pro), with sound and music, and has no known issues. Story Mode's
+movies were the last thing found broken. The shader keys shipped in `src/shader_keys.bin`
+now include everything the Quest compiled over those sessions (`vr.md`). The sections below
+are the history.
 
 ## 2026-10-12: a race
 

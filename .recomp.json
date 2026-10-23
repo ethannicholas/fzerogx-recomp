@@ -13,7 +13,8 @@
   "targets": [
     "macOS",
     "Windows",
-    "Meta Quest 3"
+    "Meta Quest 3",
+    "Apple Vision Pro"
   ],
   "toolchain": "gcn-recomp",
   "approach": "Static recompilation of the PowerPC executable to C, linked against a runtime that stands in for the GameCube hardware",

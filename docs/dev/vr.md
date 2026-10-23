@@ -145,16 +145,6 @@ no engine:
 - The engine is the speed (1500-9000 rpm to 1400 km/h; the ride's median speed was 990, its
   boosts 1400-1780).
 
-## Not yet known
-
-- World scale, HUD placement and any world pitch in the headset: `units_per_metre` is 1 from
-  the speedometer, everything else the defaults. Needs wearing.
-- Whether the countdown accepts a camera tap (taps wait for phase 41).
-- Phase 42 (a finish) and the other modes (time attack, story, VS).
-- Telemetry on a rig: the accelerations' scale (wall and machine contacts hold surge, sway
-  and heave at the 15 m/s^2 limit for a moment), whether the track-relative angles feel
-  right in a pipe or on a cylinder, the slide and spin yaw, the texture.
-
 ## The Vision Pro (2026-10-22)
 
 A standalone Vision Pro build, on gcn-recomp's `visionos/` frontend (how it works, and what
@@ -175,7 +165,7 @@ Moving to gcn-recomp 5294025 from 79c1f4f took one change: `Motion::yaw_heading`
 (gcn-recomp fda4ad1, yaw is only ever relative), and `src/motion.cpp` set it to false over a
 yaw that was already the slide and spin, so the line went.
 
-Built and installed; not yet played on the device.
+Played on the device, and works.
 
 ### Shader keys from the Vision Pro (2026-10-22)
 
