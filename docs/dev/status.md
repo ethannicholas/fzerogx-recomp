@@ -71,9 +71,15 @@ right (the movie draws each as a 640x336 I8 luma texture and a 320x168 IA8 chrom
 both dumped with `GCN_TEXDUMP`), but the quad that draws them wrote nothing even with every
 texture white (`GCN_TEX_WHITE`), and a stop at its first TEV stage was black too. The quad
 is orthographic at view z 1e-4 with a near plane at 0, a clip z of -1.0000001: a hair past
-GX's near plane, which a console still draws, and the renderer clipped it exactly. gcn-recomp
-now gives both planes 1e-5 of w (`graphics.md`, "Depth past the viewport's range"); the
-prologue and the first chapter's movie play.
+GX's near plane, which a console still draws, and the renderer clipped it exactly. The
+prologue and the first chapter's movie play since gcn-recomp's near test lets that through
+(`graphics.md`, "Depth past the viewport's range").
+
+The first fix gave both planes 1e-5 of w, on the belief that a console clips with some
+slack. It is known and measured: Dolphin issue 6914 (where "F-Zero GX cutscenes not being
+shown" was merged as a duplicate) found on a Wii that a clip z + w of -2^-23 draws and
+-2^-22 does not. The movie's quad comes to exactly -2^-23. The test is now Dolphin's (z
+scaled by 1 - 1e-7), which draws the one and clips the other; the replay's movies still play.
 
 ## Next
 
