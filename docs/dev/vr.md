@@ -79,6 +79,16 @@ one machine moving (its matrix's position equal to its position at +0x7C) was po
 from `.bss`+0x6D838, which holds the same machine as 0x2C48C in a Grand Prix: that is the
 pointer now. The replay goes into stereo on the grid with it.
 
+## Shadows in stereo (2026-10-22)
+
+Every machine's shadow turned into a translucent grey square once the view went to stereo.
+The harness's eyes showed them right, because it renders at one internal scale throughout;
+the app renders theater at scale 3 and stereo at 1, and with that switch reproduced
+(`--scale=3` and `GCN_RESCALE=<the frame stereo starts>:1`) the squares appeared. The game
+renders each machine's shadow once, as the race loads, and samples that copy for the rest of
+the race; the change of scale dropped every copy texture. Fixed in gcn-recomp (copies are
+resampled to the new scale).
+
 ## Telemetry
 
 See the comment at the top of `motion.cpp`. In short: velocity and acceleration differenced
