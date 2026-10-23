@@ -229,7 +229,7 @@ takes a few minutes the first time. The memory card and the shader cache live th
 
 ### Playing
 
-The app appears under **Library → Unknown Sources → GX Recomp**, and behaves as
+The app appears under **Library → Unknown Sources → F-Zero GX Recomp**, and behaves as
 [on a PC](#playing-in-vr-on-a-pc).
 
 | GameCube | Touch controller |
@@ -296,7 +296,7 @@ shader cache, `vr.txt` and the logs live in the same folder, which the Files app
 
 ### Playing
 
-Open **GX Recomp**. The game runs in a full immersive space; leaving it closes the app.
+Open **F-Zero GX Recomp**. The game runs in a full immersive space; leaving it closes the app.
 
 With **PlayStation VR2 Sense controllers**, the buttons are as on the Quest: the Sense
 controller's two face buttons on each hand are the Touch controller's A and B on the right

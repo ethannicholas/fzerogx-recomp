@@ -12,7 +12,7 @@ gcn_enable_languages()
 gcn_add_game(
   NAME fzerogx
   TITLE "F-Zero GX"
-  LABEL "GX Recomp"
+  LABEL "F-Zero GX Recomp"
   DISC_ID GFZE01
   DOL_SHA1 421c88106697d3275a3fc26fb7a01bf6d816b271
   SYMBOLS ${CMAKE_SOURCE_DIR}/analysis/symbols.txt

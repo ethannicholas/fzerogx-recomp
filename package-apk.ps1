@@ -7,4 +7,4 @@
 param([switch]$Install)
 Set-Location $PSScriptRoot
 & "$PSScriptRoot\gcn-recomp\tools\package-apk.ps1" -Name fzerogx -Package com.ethannicholas.fzerogx `
-    -Title 'GX Recomp' -Install:$Install
+    -Title 'F-Zero GX Recomp' -Install:$Install

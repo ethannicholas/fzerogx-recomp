@@ -63,6 +63,18 @@ the Practice replay follows the recorded path exactly up to the first plate and 
 takes the boost there; after that the run differs from what was played, so the second
 plate could not be checked from the recording.
 
+## Story Mode's movies (2026-10-23)
+
+Story Mode's movies (`fze.movie`, `fze.movie_module`) played as a black screen for their
+length. A replay of a Quest session reached the prologue's movie; its decoded frames were
+right (the movie draws each as a 640x336 I8 luma texture and a 320x168 IA8 chroma texture,
+both dumped with `GCN_TEXDUMP`), but the quad that draws them wrote nothing even with every
+texture white (`GCN_TEX_WHITE`), and a stop at its first TEV stage was black too. The quad
+is orthographic at view z 1e-4 with a near plane at 0, a clip z of -1.0000001: a hair past
+GX's near plane, which a console still draws, and the renderer clipped it exactly. gcn-recomp
+now gives both planes 1e-5 of w (`graphics.md`, "Depth past the viewport's range"); the
+prologue and the first chapter's movie play.
+
 ## Next
 
 - Steering: a route that finishes a race, then the rest of the cup.
