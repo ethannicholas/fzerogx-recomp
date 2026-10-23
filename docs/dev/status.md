@@ -47,6 +47,22 @@ motion rig, with sound and music, and tried on the Quest 3.
   op that sets it. This also brought back the machine model and balance chart on Machine
   Settings.
 
+## Dash plates (2026-10-22)
+
+Dash plates had never worked reliably: some fired, most did not, with no pattern anyone
+could see. A Practice session on the Quest that ran over two without a boost replayed the
+same on the desktop, and a later session in which one fired showed the path. Each frame
+fn_1_28660 tests the machine's move (its position at +0x7C and last frame's at +0x88)
+against the course's special surfaces with fn_1_163BC, and a result with 0x08 sets 0x400000
+in the machine's flags, from which fn_1_26F34 starts the boost (a countdown at +0x18A).
+fn_1_163BC finds the collision grid cell under the machine by `fctiw` with FPSCR[RN] set to
+round toward minus infinity. The runtime's `fctiw` always rounded to nearest, so wherever
+the machine was past the middle of a cell the next cell was searched, and a plate's
+triangles in the right one were missed. gcn-recomp d6d72af makes `fctiw` honour RN. With it
+the Practice replay follows the recorded path exactly up to the first plate and then
+takes the boost there; after that the run differs from what was played, so the second
+plate could not be checked from the recording.
+
 ## Next
 
 - Steering: a route that finishes a race, then the rest of the cup.
