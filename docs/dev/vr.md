@@ -97,6 +97,29 @@ black, and the black swung about with the head. The eyes' far plane was the fron
 An eye now takes each draw's far plane from the game's projection (gcn-recomp, "The eye's
 far plane" in `graphics.md`); on the Quest the terrain is whole.
 
+## Grips (2026-10-23)
+
+Boost (Y) is on the right grip, the spin attack (Z) on the left (`GameHooks::grip_right`,
+`grip_left`). A button on the left grip replaces the frontend's D-pad mode, which this game
+does not need from the player: the cockpit camera's D-pad taps are the hook's own.
+
+## Shadows' depth in stereo (2026-10-23)
+
+Once the shadows drew right in stereo, the player's floated at about the height of the
+middle of the machine. A draw log of a stereo race frame (frame 3000 of the 23:06 session,
+replayed on the Quest with `fzerogx_egl --eye`) showed why: each machine's shadow is a
+six-vertex quad sampling that machine's shadow copy, with an identity position matrix -- the
+game computes its corners in view space -- and it is pulled along the lines of sight
+towards the camera. The player's machine was at z -4.7 to -9.0 and its shadow at -2.45 to
+-5.9; against the machines, the pull came to 1.5 to 3 units at every distance, a distance
+rather than a factor. The flat picture cannot show it; two eyes can.
+
+The eye filter (`eye_filter` in `src/vr_fzerogx.cpp`) answers `EyePushOut` for a perspective
+draw whose only texture is a copy of part of the frame, which in that frame was the 17
+shadows and nothing else, and `shadow_push` (vr.txt, 2 units by default, chosen by eye and
+right on the first try) is how far they go back. The constant in the game's code was not
+looked for.
+
 ## Telemetry
 
 See the comment at the top of `motion.cpp`. In short: velocity and acceleration differenced

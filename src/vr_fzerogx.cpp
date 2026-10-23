@@ -22,6 +22,7 @@
 #include <cstdlib>
 
 #include "gx/render.h"
+#include "gx/render_gl.h"
 #include "hw/pad.h"
 #include "motion.h"
 #include "race.h"
@@ -136,12 +137,34 @@ void config_defaults(VrConfig& c) {
     c.units_per_metre = 1.0f;
 }
 
+// The machines' shadows: a quad under each machine, computed by the game in view space and
+// pulled along the lines of sight towards the camera, so that it is drawn over the track
+// without fighting it. In stereo it floated about halfway up the machine. Put back by
+// `shadow_push` units (vr.txt), a distance chosen by eye: the pull measured at about 1.5 to 3
+// units against the machines in one frame (docs/dev/vr.md).
+void config_loaded(const VrConfig& c) { gx::render_set_push_out(c.get("shadow_push", 2.0f)); }
+
+// A shadow is the only perspective draw seen whose only texture is a copy of part of the
+// frame (each machine's shadow, rendered as the race loads).
+int eye_filter(const gx::PixelState&, const gx::EyeDrawFacts& f) {
+    if (f.ortho || f.indirect || !f.samples_copy || f.samples_fullscreen_copy) return gx::EyeKeep;
+    for (uint64_t h : f.tex_hash)
+        if (h) return gx::EyeKeep;
+    return gx::EyePushOut;
+}
+
 const bool installed = [] {
     vr::GameHooks h;
     h.config_defaults = config_defaults;
+    h.config_loaded = config_loaded;
+    h.eye_filter = eye_filter;
     h.wants_stereo = wants_stereo;
     h.set_first_person = set_first_person;
     h.map_pad = map_pad;
+    // Boost (Y) on the right grip, the spin attack (Z) on the left. The player never needs
+    // the D-pad, the left grip's otherwise: the camera taps above are the hook's own.
+    h.grip_right = PAD_Y;
+    h.grip_left = PAD_Z;
     vr::set_game_hooks(h);
     gx::set_guest_frame_hook(guest_frame);
     return true;
