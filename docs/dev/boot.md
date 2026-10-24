@@ -42,6 +42,28 @@ dtk cannot read back its own analysis of `fze.main` (on reload it re-derives a j
 in `.data` that runs into a string, and fails), so `tools/analyze.sh` empties that module's
 symbol files before every run. Hand-named functions in `fze.main` go in `recomp/names.txt`.
 
+## The logo delay
+
+The AV logo stayed up for about 13 s against about 4 on a GameCube. It was not waiting on
+work: the boot had linked `fze.title` by 1.4 s of game time. The logo screens' only timer is
+`fn_80005E0C`, a fixed-length busy loop of about 400k loop back-edges that nothing reads a
+result from. The boot screen (`fn_80005A08`) calls it 20 times, then twice in each of five
+frames, then 20 more times. The title module's per-frame function (`fn_81A2BA04`) calls it
+twice a frame through the logo, whose length is counted in frames. The virtual clock
+charges every back-edge the same 2 ticks (24 CPU cycles), about three times what this loop's
+tiny iterations cost a real Gekko. A logo frame therefore came to 2.46 fields, and since the
+game waits for the retrace, the screen ran at 20 fps instead of 60. `recomp/patches.txt`
+returns from the function at once; the logo screen then runs at 60 fps and lasts about 4.5 s
+(measured on the Quest with frame dumps).
+
+The game still waits for the retrace every frame, so nothing runs faster than 60 fps without
+the delay: a logo frame is about 13k back-edges.
+
+On Windows, a headless run (`--headless`, which never initialises SDL and so never raises the
+timer resolution) sleeps in 16 ms steps. Catch-up turns each overshoot into a jump of game
+time, and boot there takes 3-7 s longer than it should. The headset does not have this; the
+windowed game should not, since `SDL_Init` sets a 1 ms timer, but that is not measured.
+
 ## Virtual memory
 
 `fn_800071B8`, called at boot, takes a page table from the top of the arena, points SDR1

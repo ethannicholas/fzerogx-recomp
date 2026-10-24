@@ -1,1 +1,8 @@
 # addr  C statement replacing the original instruction at addr (one per line)
+
+# fn_80005E0C is a fixed-length busy loop the logo screens use as a delay, twice a frame
+# through the AV logo. The virtual clock charges it about three times what it costs on
+# hardware, which held that screen at 20 fps instead of 60 and the logo up for ~13 s
+# instead of ~4. Neither caller uses anything it leaves behind, so it returns at once.
+# See docs/dev/boot.md, "The logo delay".
+80005E0C RET();
